@@ -2,13 +2,149 @@
 <html>
 <head>
 <style>
-body {
-    background-color: rgb(226, 246, 253);
-}
-</style>
+    body {
+        background-color: rgb(248, 226, 102);
+        color: white;
+        margin: 0;
+        font-family: Arial, sans-serif;
+        transition: background-color 0.5s, color 0.5s;
+        overflow: hidden;
+    }
+    h1 {
+        background-color: rgba(255, 255, 255, 1);
+        text-align: center;
+        color: gold;
+        font-family: monospace;
+        padding: 50px;
+        margin: 0;
+        transition: background-color 0.5s, color 0.5s;
+        position: relative;
+        z-index: 1;
+    }
+    .theme-menu {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        z-index: 1;
+    }
+    .theme-dropdown {
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid black;
+        cursor: pointer;
+    }
+    #matrix {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        background: black;
+        overflow: hidden;
+        display: none;
+    }
+    .matrix-column {
+        position: absolute;
+        top: -100%;
+        font-family: monospace;
+        font-size: 20px;
+        color: lime;
+        animation: fall alternate-reverse infinite;
+        user-select: none;
+        white-space: nowrap;
+    }
+    @keyframes fall {
+        0% {
+            top: -100%;
+            opacity: 1;
+        }
+        100% {
+            top: 100%;
+            opacity: 0;
+        }
+    }
+</style>    
 </head>
 <body>
-<h1>Welcome to my Resume!</h1>
-<p>I'm hosted this with Github Pages.</p>
+    <h1>Amir Reza M. Yaghchi's Interactable Resume.</h1>
+    <div class="theme-menu">
+        <select class="theme-dropdown" onchange="changeTheme(this.value)">
+            <option value="Sacred">Sacred Theme</option>
+            <option value="Noir">Noir Theme</option>
+            <option value="Aqua">Aqua Theme</option>
+            <option value="Matrix">Matrix Theme</option>
+        </select>
+    </div>
+
+    <div id="matrix"></div>
+
+    <script>
+        function createMatrixEffect() {
+            const matrixDiv = document.getElementById('matrix');
+            matrixDiv.innerHTML = ''; // Clear existing columns
+            matrixDiv.style.display = 'block';
+
+            const screenWidth = window.innerWidth;
+            const columnCount = Math.floor(screenWidth / 20); // Each column has a width of 20px
+
+            for (let i = 0; i < columnCount; i++) {
+                const column = document.createElement('div');
+                column.classList.add('matrix-column');
+                column.style.left = `${i * 20}px`; // Set horizontal position
+                column.style.animationDuration = `${Math.random() * 2 + 4}s`; // Randomize fall speed
+
+                // Generate a vertical string of characters
+                column.textContent = generateRandomMatrixCode(20);
+                matrixDiv.appendChild(column);
+            }
+        }
+
+        function generateRandomMatrixCode(length) {
+            const characters = '01';
+            let result = '';
+            for (let i = 0; i < length; i++) {
+                result += characters.charAt(Math.floor(Math.random() * characters.length)) + '\n';
+            }
+            return result;
+        }
+
+        function changeTheme(theme) {
+            const h1 = document.querySelector('h1');
+            const matrixDiv = document.getElementById('matrix');
+
+            switch (theme) {
+                case "Sacred":
+                    matrixDiv.style.display = 'none';
+                    document.body.style.backgroundColor = 'rgb(248, 226, 102)';
+                    document.body.style.color = 'white';
+                    h1.style.backgroundColor = 'white';
+                    h1.style.color = 'gold';
+                    break;
+                case "Noir":
+                    matrixDiv.style.display = 'none';
+                    document.body.style.backgroundColor = 'black';
+                    document.body.style.color = 'white';
+                    h1.style.backgroundColor = 'darkgray';
+                    h1.style.color = 'white';
+                    break;
+                case "Aqua":
+                    matrixDiv.style.display = 'none';
+                    document.body.style.backgroundColor = 'rgba(66, 242, 255, 0.966)';
+                    document.body.style.color = 'white';
+                    h1.style.backgroundColor = 'aqua';
+                    h1.style.color = 'white';
+                    break;
+                case "Matrix":
+                    document.body.style.backgroundColor = 'black';
+                    document.body.style.color = 'white';
+                    h1.style.backgroundColor = 'transparent';
+                    h1.style.color = 'lime';
+                    createMatrixEffect();
+                    break;
+            }
+        }
+    </script>
 </body>
 </html>
