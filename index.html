@@ -134,10 +134,17 @@
                     matrixDiv.style.display = 'none';
                     document.body.style.backgroundColor = 'black';
                     document.body.style.color = 'white';
-                    h1.style.backgroundColor = 'darkgray';
-                    h1.style.border = '10px white';
+                    h1.style.backgroundColor = '#222'; // Dark gray background
                     h1.style.color = 'white';
+                    
+                    // Comic book style changes for Noir
+                    document.body.style.border = '10px solid gray'; // Bold gray border
+                    document.body.style.boxShadow = '0 0 20px 5px rgba(255, 255, 255, 0.3)'; // Soft glow effect
+                    
+                    h1.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.8)'; // Shadow for text
+                    
                     break;
+                   
                 case "Aqua":
                     matrixDiv.style.display = 'none';
                     document.body.style.backgroundColor = 'rgba(66, 242, 255, 0.966)';
