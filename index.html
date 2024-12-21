@@ -47,26 +47,28 @@
     }
     .matrix-column {
         position: absolute;
-        top: -100%;
+        top: 0;
+        left: 0;
         font-family: monospace;
         font-size: 20px;
         color: lime;
-        animation: fall linear infinite;
         user-select: none;
-        white-space: nowrap;
-        margin: 20px;
+    }
+    .matrix-character {
+        display: block;
+        animation: fall linear infinite;
     }
     @keyframes fall {
         0% {
-            top: -100%;
-            opacity: 1;
+            opacity: 0;
+            transform: translateY(-100%);
         }
         100% {
-            top: 100%;
-            opacity: 0;
+            opacity: 1;
+            transform: translateY(100vh);
         }
     }
-</style>    
+</style>
 </head>
 <body>
     <h1>Amir Reza M. Yaghchi's Interactable Resume.</h1>
@@ -88,27 +90,31 @@
             matrixDiv.style.display = 'block';
 
             const screenWidth = window.innerWidth;
-            const columnCount = Math.floor(screenWidth / 20); // Each column has a width of 20px
+            const columnWidth = 20;
+            const columnCount = Math.floor(screenWidth / columnWidth);
 
             for (let i = 0; i < columnCount; i++) {
                 const column = document.createElement('div');
                 column.classList.add('matrix-column');
-                column.style.left = `${i * 20}px`; // Set horizontal position
-                column.style.animationDuration = `${Math.random() * 2 + 4}s`; // Randomize fall speed
+                column.style.left = `${i * columnWidth}px`;
 
-                // Generate a vertical string of characters
-                column.textContent = generateRandomMatrixCode(20);
+                const columnHeight = Math.random() * 50 + 20; // Random number of characters in the column
+                for (let j = 0; j < columnHeight; j++) {
+                    const char = document.createElement('span');
+                    char.classList.add('matrix-character');
+                    char.textContent = generateRandomMatrixCharacter();
+                    char.style.animationDelay = `${Math.random() * 5}s`;
+                    char.style.animationDuration = `${Math.random() * 2 + 3}s`;
+                    column.appendChild(char);
+                }
+
                 matrixDiv.appendChild(column);
             }
         }
 
-        function generateRandomMatrixCode(length) {
+        function generateRandomMatrixCharacter() {
             const characters = '01';
-            let result = '';
-            for (let i = 0; i < length; i++) {
-                result += characters.charAt(Math.floor(Math.random() * characters.length)) + '\n';
-            }
-            return result;
+            return characters.charAt(Math.floor(Math.random() * characters.length));
         }
 
         function changeTheme(theme) {
