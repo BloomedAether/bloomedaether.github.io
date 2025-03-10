@@ -4,7 +4,6 @@
 <style>
     body {
         background-color: rgb(248, 226, 102);
-        
         color: white;
         margin: 0;
         font-family: Arial, sans-serif;
@@ -21,18 +20,6 @@
         transition: background-color 0.5s, color 0.5s;
         position: relative;
         z-index: 1;
-    }
-    .theme-menu {
-        position: absolute;
-        top: 20px;
-        right: 20px;
-        z-index: 1;
-    }
-    .theme-dropdown {
-        padding: 10px;
-        font-size: 16px;
-        border-radius: 5px;
-        border: 1px solid black;
         cursor: pointer;
     }
     #matrix {
@@ -72,19 +59,30 @@
 </style>
 </head>
 <body>
-    <h1>Amir Reza M. Yaghchi's Interactable Resume.</h1>
-    <div class="theme-menu">
-        <select class="theme-dropdown" onchange="changeTheme(this.value)">
-            <option value="Sacred">Sacred Theme</option>
-            <option value="Noir">Noir Theme</option>
-            <option value="Aqua">Aqua Theme</option>
-            <option value="Matrix">Matrix Theme</option>
-        </select>
-    </div>
-
+    <h1 id="resume-title">Amir Reza M. Yaghchi's Interactable Resume.</h1>
     <div id="matrix"></div>
 
     <script>
+        let clickCount = 0;
+        document.getElementById("resume-title").addEventListener("click", function() {
+            clickCount++;
+            if (clickCount === 3) {
+                activateMatrixTheme();
+                clickCount = 0;
+            }
+        });
+
+        function activateMatrixTheme() {
+            const h1 = document.getElementById("resume-title");
+            const matrixDiv = document.getElementById("matrix");
+
+            document.body.style.backgroundColor = 'black';
+            document.body.style.color = 'white';
+            h1.style.backgroundColor = 'transparent';
+            h1.style.color = 'lime';
+            createMatrixEffect();
+        }
+
         function createMatrixEffect() {
             const matrixDiv = document.getElementById('matrix');
             matrixDiv.innerHTML = ''; // Clear existing columns
@@ -99,7 +97,7 @@
                 column.classList.add('matrix-column');
                 column.style.left = `${i * columnWidth}px`;
 
-                const columnHeight = Math.random() * 50 + 20; // Random number of characters in the column
+                const columnHeight = Math.random() * 50 + 20;
                 for (let j = 0; j < columnHeight; j++) {
                     const char = document.createElement('span');
                     char.classList.add('matrix-character');
@@ -116,50 +114,6 @@
         function generateRandomMatrixCharacter() {
             const characters = '01';
             return characters.charAt(Math.floor(Math.random() * characters.length));
-        }
-
-        function changeTheme(theme) {
-            const h1 = document.querySelector('h1');
-            const matrixDiv = document.getElementById('matrix');
-
-            switch (theme) {
-                case "Sacred":
-                    matrixDiv.style.display = 'none';
-                    document.body.style.backgroundColor = 'rgb(248, 226, 102)';
-                    document.body.style.color = 'white';
-                    h1.style.backgroundColor = 'white';
-                    h1.style.color = 'gold';
-                    break;
-                case "Noir":
-                    matrixDiv.style.display = 'none';
-                    document.body.style.backgroundColor = 'black';
-                    document.body.style.color = 'white';
-                    h1.style.backgroundColor = '#222'; // Dark gray background
-                    h1.style.color = 'white';
-                    
-                    // Comic book style changes for Noir
-                    document.body.style.border = '10px solid gray'; // Bold gray border
-                    document.body.style.boxShadow = '0 0 20px 5px rgba(255, 255, 255, 0.3)'; // Soft glow effect
-                    
-                    h1.style.textShadow = '2px 2px 4px rgba(0, 0, 0, 0.8)'; // Shadow for text
-                    
-                    break;
-                   
-                case "Aqua":
-                    matrixDiv.style.display = 'none';
-                    document.body.style.backgroundColor = 'rgba(66, 242, 255, 0.966)';
-                    document.body.style.color = 'white';
-                    h1.style.backgroundColor = 'aqua';
-                    h1.style.color = 'white';
-                    break;
-                case "Matrix":
-                    document.body.style.backgroundColor = 'black';
-                    document.body.style.color = 'white';
-                    h1.style.backgroundColor = 'transparent';
-                    h1.style.color = 'lime';
-                    createMatrixEffect();
-                    break;
-            }
         }
     </script>
 </body>
