@@ -3,17 +3,17 @@
 <head>
 <style>
     body {
-        background-color: rgb(248, 226, 102);
-        color: white;
+        background-color: pink;
+        color: purple;
         margin: 0;
         font-family: Arial, sans-serif;
         transition: background-color 0.5s, color 0.5s;
         overflow: hidden;
     }
     h1 {
-        background-color: rgba(255, 255, 255, 1);
+        background-color: white;
         text-align: center;
-        color: gold;
+        color: purple;
         font-family: monospace;
         padding: 50px;
         margin: 0;
@@ -59,45 +59,11 @@
 </style>
 </head>
 <body>
-    <h1 id="resume-title">Amir Reza M. Yaghchi's Interactable Resume.</h1>
+    <h1 onclick="toggleTheme()">Amir Reza M. Yaghchi's Interactable Resume.</h1>
     <div id="matrix"></div>
 
     <script>
         let clickCount = 0;
-        let switchTheme = false;
-        document.getElementById("resume-title").addEventListener("click", function() {
-            clickCount++;
-            if (clickCount === 3 && switchTheme === false) {
-                activateMatrixTheme();
-                clickCount = 0;
-                switchTheme = true;
-            }
-            if (clickCount === 3 && switchTheme === true) {
-                normalTheme();
-                clickCount = 0;
-                switchTheme = false;
-            }
-        });
-        function normalTheme(){
-            const h1 = document.getElementById("resume-title");
-            
-
-            document.body.style.backgroundColor = 'white';
-            document.body.style.color = 'pink';
-            h1.style.backgroundColor = 'transparent';
-            h1.style.color = 'purple';
-        }
-        function activateMatrixTheme() {
-            const h1 = document.getElementById("resume-title");
-            const matrixDiv = document.getElementById("matrix");
-
-            document.body.style.backgroundColor = 'black';
-            document.body.style.color = 'white';
-            h1.style.backgroundColor = 'transparent';
-            h1.style.color = 'lime';
-            createMatrixEffect();
-        }
-
         function createMatrixEffect() {
             const matrixDiv = document.getElementById('matrix');
             matrixDiv.innerHTML = ''; // Clear existing columns
@@ -112,7 +78,7 @@
                 column.classList.add('matrix-column');
                 column.style.left = `${i * columnWidth}px`;
 
-                const columnHeight = Math.random() * 50 + 20;
+                const columnHeight = Math.random() * 50 + 20; // Random number of characters in the column
                 for (let j = 0; j < columnHeight; j++) {
                     const char = document.createElement('span');
                     char.classList.add('matrix-character');
@@ -129,6 +95,24 @@
         function generateRandomMatrixCharacter() {
             const characters = '01';
             return characters.charAt(Math.floor(Math.random() * characters.length));
+        }
+
+        function toggleTheme() {
+            clickCount++;
+            if (clickCount >= 3) {
+                document.body.style.backgroundColor = 'black';
+                document.body.style.color = 'white';
+                document.querySelector('h1').style.backgroundColor = 'transparent';
+                document.querySelector('h1').style.color = 'lime';
+                createMatrixEffect();
+            } else {
+                const colors = [['pink', 'purple'], ['white', 'pink'], ['purple', 'white']];
+                const index = (clickCount - 1) % colors.length;
+                document.body.style.backgroundColor = colors[index][0];
+                document.body.style.color = colors[index][1];
+                document.querySelector('h1').style.backgroundColor = 'white';
+                document.querySelector('h1').style.color = colors[index][1];
+            }
         }
     </script>
 </body>
