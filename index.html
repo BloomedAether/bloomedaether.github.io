@@ -3,7 +3,7 @@
 <head>
 <style>
     body {
-        background-color: pink;
+        background-color: #ffccff; /* Soft pink */
         color: purple;
         margin: 0;
         font-family: Arial, sans-serif;
@@ -13,14 +13,14 @@
     h1 {
         background-color: white;
         text-align: center;
-        color: purple;
-        font-family: monospace;
+        color: #ff66b2; /* Kawaii pink */
+        font-family: "Comic Sans MS", cursive, sans-serif;
         padding: 50px;
         margin: 0;
         transition: background-color 0.5s, color 0.5s;
+        cursor: pointer;
         position: relative;
         z-index: 1;
-        cursor: pointer;
     }
     #matrix {
         position: absolute;
@@ -59,14 +59,15 @@
 </style>
 </head>
 <body>
-    <h1 onclick="toggleTheme()">Amir Reza M. Yaghchi's Interactable Resume.</h1>
+    <h1 onclick="toggleTheme()">Amir Reza M. Yaghchi's Interactable Resume</h1>
     <div id="matrix"></div>
 
     <script>
-        let clickCount = 0;
+        let isMatrix = false;
+
         function createMatrixEffect() {
             const matrixDiv = document.getElementById('matrix');
-            matrixDiv.innerHTML = ''; // Clear existing columns
+            matrixDiv.innerHTML = ''; 
             matrixDiv.style.display = 'block';
 
             const screenWidth = window.innerWidth;
@@ -78,7 +79,7 @@
                 column.classList.add('matrix-column');
                 column.style.left = `${i * columnWidth}px`;
 
-                const columnHeight = Math.random() * 50 + 20; // Random number of characters in the column
+                const columnHeight = Math.random() * 50 + 20;
                 for (let j = 0; j < columnHeight; j++) {
                     const char = document.createElement('span');
                     char.classList.add('matrix-character');
@@ -93,26 +94,30 @@
         }
 
         function generateRandomMatrixCharacter() {
-            const characters = '01';
-            return characters.charAt(Math.floor(Math.random() * characters.length));
+            return '01'.charAt(Math.floor(Math.random() * 2));
         }
 
         function toggleTheme() {
-            clickCount++;
-            if (clickCount >= 3) {
+            const h1 = document.querySelector('h1');
+            const matrixDiv = document.getElementById('matrix');
+
+            if (isMatrix) {
+                // Switch to kawaii theme
+                matrixDiv.style.display = 'none';
+                document.body.style.backgroundColor = '#ffccff'; // Soft pink
+                document.body.style.color = 'purple';
+                h1.style.backgroundColor = 'white';
+                h1.style.color = '#ff66b2'; // Kawaii pink
+            } else {
+                // Switch to Matrix theme
                 document.body.style.backgroundColor = 'black';
                 document.body.style.color = 'white';
-                document.querySelector('h1').style.backgroundColor = 'transparent';
-                document.querySelector('h1').style.color = 'lime';
+                h1.style.backgroundColor = 'transparent';
+                h1.style.color = 'lime';
                 createMatrixEffect();
-            } else {
-                const colors = [['pink', 'purple'], ['white', 'pink'], ['purple', 'white']];
-                const index = (clickCount - 1) % colors.length;
-                document.body.style.backgroundColor = colors[index][0];
-                document.body.style.color = colors[index][1];
-                document.querySelector('h1').style.backgroundColor = 'white';
-                document.querySelector('h1').style.color = colors[index][1];
             }
+
+            isMatrix = !isMatrix;
         }
     </script>
 </body>
