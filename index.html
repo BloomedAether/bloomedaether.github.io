@@ -7,17 +7,17 @@
     <style>
         body {
             background-color: #ffccff; /* Soft pink */
-            color: rgba(128, 0, 128, 0.527);
+            color: purple;
             margin: 0;
             font-family: Arial, sans-serif;
             transition: background-color 0.5s, color 0.5s;
-            overflow: hidden;
             text-align: center;
+            overflow: hidden;
         }
         h1 {
             background-color: white;
-            color: #ff0481; /* Kawaii pink */
-            font-family: 'Times New Roman', Times, serif;
+            color: #ff66b2; /* Kawaii pink */
+            font-family: "Comic Sans MS", cursive, sans-serif;
             padding: 20px;
             margin: 0;
             transition: background-color 0.5s, color 0.5s;
@@ -39,11 +39,17 @@
         canvas {
             display: block;
         }
+        #content {
+            margin-top: 50px;
+            font-size: 20px;
+            transition: color 0.5s;
+        }
     </style>
 </head>
 <body>
     <h1 onclick="toggleTheme()">Amir Reza M. Yaghchi's Interactable Resume</h1>
     <div id="matrix"><canvas id="matrixCanvas"></canvas></div>
+    <p id="content">Education: Carleton University Alumni, Graduate of the Bachelors Program of Philosophy.</p>
 
     <script>
         let isMatrix = false;
@@ -54,6 +60,7 @@
             const matrixDiv = document.getElementById('matrix');
             const canvas = document.getElementById('matrixCanvas');
             const ctx = canvas.getContext('2d');
+            const content = document.getElementById('content');
 
             if (isMatrix) {
                 // Switch to kawaii theme
@@ -63,6 +70,7 @@
                 document.body.style.color = 'purple';
                 h1.style.backgroundColor = 'white';
                 h1.style.color = '#ff66b2'; // Kawaii pink
+                content.style.color = 'purple';
             } else {
                 // Switch to Matrix theme
                 document.body.style.backgroundColor = 'black';
@@ -70,6 +78,7 @@
                 h1.style.backgroundColor = 'transparent';
                 h1.style.color = 'lime';
                 matrixDiv.style.display = 'block';
+                content.style.color = 'lime';
 
                 // Start Matrix effect
                 canvas.width = window.innerWidth;
