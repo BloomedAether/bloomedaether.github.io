@@ -64,14 +64,29 @@
 
     <script>
         let clickCount = 0;
+        let switchTheme = false;
         document.getElementById("resume-title").addEventListener("click", function() {
             clickCount++;
-            if (clickCount === 3) {
+            if (clickCount === 3 && switchTheme === false) {
                 activateMatrixTheme();
                 clickCount = 0;
+                switchTheme = true;
+            }
+            if (clickCount === 3 && switchTheme === true) {
+                normalTheme();
+                clickCount = 0;
+                switchTheme = false;
             }
         });
+        function normalTheme(){
+            const h1 = document.getElementById("resume-title");
+            
 
+            document.body.style.backgroundColor = 'white';
+            document.body.style.color = 'pink';
+            h1.style.backgroundColor = 'transparent';
+            h1.style.color = 'purple';
+        }
         function activateMatrixTheme() {
             const h1 = document.getElementById("resume-title");
             const matrixDiv = document.getElementById("matrix");
