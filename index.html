@@ -1,179 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amir's Resume</title>
-    <style>
-        body {
-            background-color: #fdfdfd; /* Soft pink */
-            color: #2ae3fc;
-            margin: 0;
-            font-family: Arial, sans-serif;
-            transition: background-color 0.5s, color 0.5s;
-            text-align: center;
-            overflow-x: hidden;
-        }
-        h1 {
-            background-color: #2ae3fc;
-            color: #ffb0d8; /* Kawaii pink */
-            font-family: "Comic Sans MS", cursive, sans-serif;
-            padding: 20px;
-            margin: 0;
-            transition: background-color 0.5s, color 0.5s;
-            cursor: pointer;
-            position: sticky;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        #matrix {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 0;
-            background: black;
-            display: none;
-            overflow: hidden;
-        }
-        canvas {
-            display: block;
-        }
-        #content {
-            margin-top: 80px;
-            font-size: 20px;
-            transition: color 0.5s;
-            text-align: left;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .section {
-            margin-bottom: 40px;
-        }
-        .left-image {
-            display: block; /* Removes extra spacing */
-            margin-left: 0; /* Ensures no margin on the left */
-            padding-left: 0;
-            width: 400px; /* Adjust size as needed */
-            position: fixed;
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Amir's Resume</title>
+<style>
+    :root {
+        --primary-bg: #fdfdfd;
+        --primary-text: #251944;
+        --header-bg: #251944;
+        --header-text: #fdfdfd;
+        --accent: #3e2d72;
+        --card-bg: #ffffff;
+        --shadow: rgba(0, 0, 0, 0.1);
+    }
+
+    body {
+        background-color: var(--primary-bg);
+        color: var(--primary-text);
+        margin: 0;
+        font-family: 'Segoe UI', Arial, sans-serif;
+        transition: background-color 0.5s, color 0.5s;
+        overflow-x: hidden;
+    }
+
+    h1 {
+        background-color: var(--header-bg);
+        color: var(--header-text);
+        font-family: 'Times New Roman', serif;
+        padding: 20px;
+        margin: 0;
+        position: sticky;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+        box-shadow: 0 4px 12px var(--shadow);
+        text-align: center;
+        font-size: 2.2rem;
+        letter-spacing: 1px;
+        cursor: pointer;
+        transition: background-color 0.5s, color 0.5s;
+    }
+
+    #matrix {
+        position: fixed;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        z-index: 0;
+        background: black;
+        display: none;
+        overflow: hidden;
+    }
+
+    canvas { display: block; }
+
+    #content {
+        margin-top: 60px;
+        max-width: 900px;
+        padding: 20px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        z-index: 1;
+    }
+
+    .section {
+        background: var(--card-bg);
+        box-shadow: 0 4px 12px var(--shadow);
+        border-radius: 10px;
+        padding: 20px 30px;
+        margin-bottom: 40px;
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .section:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 8px 20px var(--shadow);
+    }
+
+    h2 {
+        color: var(--accent);
+        margin-top: 0;
+        border-bottom: 2px solid var(--accent);
+        padding-bottom: 5px;
+        font-size: 1.5rem;
+    }
+
+    p {
+        font-size: 1rem;
+        line-height: 1.6;
+    }
+
+    ul {
+        padding-left: 20px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    li {
+        margin-bottom: 8px;
+        line-height: 1.5;
+    }
+
+    strong {
+        color: var(--accent);
+    }
+
+    /* Responsive */
+    @media (max-width: 600px) {
+        h1 { font-size: 1.8rem; padding: 15px; }
+        .section { padding: 15px 20px; }
+        h2 { font-size: 1.3rem; }
+    }
+</style>
 </head>
 <body>
-    <h1 onclick="toggleTheme()">Amir Reza M. Yaghchi's Interactable Resume</h1>
-    <div id="matrix"><canvas id="matrixCanvas"></canvas></div>
-    
-    <div id="content">
-        <div class="section">
-            <h2>Education</h2>
-            <p>Algonquin College Student - Graduate Certficate in Cybersecurity Analysis 2025-2026</p>
-            <ul>
-                <li><strong>Seeking to learn further about Cybersecurity! Beginning program in September 2025</li>
-            </ul>
-            <p>Google - Cybersecurity Certification 2025-Present</p>
-            <ul>
-                <li><strong>IT:</strong> Resetting, fixing, maintaining, teaching, and learning about software and hardware.</li>
-                <li><strong>Networking:</strong> IP, DNS, TCP, UDP, packets, ports and other networking related skills.</li>
-                <li><strong>Red Team:</strong> Understands, and used Metasploit along with other hacking tools.</li>
-                <li><strong>Blue Team:</strong> Defending and strengthening Networks through patching known vunerabilities, and systematic procedures.</li>
-                <li><strong>Theory:</strong> Understands numerous frameworks, and good understanding of a hacking mindset.</li>
-                <li><strong>Development and Tools:</strong> Currently making, and learning about cybersecurity tools.</li>
-                <li><strong>Mentality:</strong> Extreme curiosity, coupled with superior conduct, and passion for Cybersecurity!</li>
-            </ul>
-            <p>Carleton University Alumni - Bachelors in Philosophy 2021-2024</p>
-            <ul>
-                <li><strong>Metaphysics:</strong> Exploring the nature of reality, existence, and what lies beyond physical perception.</li>
-                <li><strong>Logic:</strong> Analyzing valid reasoning, argument structures, and symbolic logic.</li>
-                <li><strong>Ethics:</strong> Examining moral philosophy, from virtue ethics to deontological and consequentialist theories.</li>
-                <li><strong>World Philosophies:</strong> Engaging with Eastern, Western, and Indigenous philosophies to understand diverse perspectives on life.</li>
-                <li><strong>Computer Science:</strong> Took three years of CS, and I study Cybersecurity/Programming till this day.</li>
-            </ul>
-        </div>
-        <div class="section">
-            <h2>Experience</h2>
-            <p>...and still gaining more!</p>
-            <ul>
-                <li><strong>Fixed adware, reset passwords, fixed drivers, installed new OS, used BIOS, scanned ports, learned Metasploit, done codewars and leetcode. Know python
-                    and various other languages, such as Java, and C++ adeptly.
-                </li>
-            </ul>
-        </div>
+<h1 onclick="toggleTheme()">Amir's Resume</h1>
+<div id="matrix"><canvas id="matrixCanvas"></canvas></div>
+
+<div id="content">
+    <div class="section">
+        <h2>Education</h2>
+        <p><strong>Algonquin College Student</strong> - Graduate Certificate in Cybersecurity Analysis <em>(2025-2026)</em></p>
+        <ul>
+            <li>Seeking to learn further about Cybersecurity! Beginning program in September 2025</li>
+        </ul>
+
+        <p><strong>Google</strong> - Cybersecurity Certification <em>(2025-Present)</em></p>
+        <ul>
+            <li><strong>IT:</strong> Resetting, fixing, maintaining, teaching, and learning about software and hardware.</li>
+            <li><strong>Networking:</strong> IP, DNS, TCP, UDP, packets, ports, and more.</li>
+            <li><strong>Red Team:</strong> Used Metasploit and other hacking tools.</li>
+            <li><strong>Blue Team:</strong> Patched vulnerabilities, improved network defense.</li>
+            <li><strong>Theory:</strong> Strong understanding of hacking frameworks and mindsets.</li>
+            <li><strong>Development:</strong> Creating and studying cybersecurity tools.</li>
+            <li><strong>Mentality:</strong> Driven by curiosity, discipline, and passion for Cybersecurity!</li>
+        </ul>
+
+        <p><strong>Carleton University Alumni</strong> - B.A. in Philosophy <em>(2021-2024)</em></p>
+        <ul>
+            <li><strong>Metaphysics:</strong> Explored reality and existence beyond the physical.</li>
+            <li><strong>Logic:</strong> Studied reasoning, argument structures, symbolic logic.</li>
+            <li><strong>Ethics:</strong> Covered virtue ethics, deontology, consequentialism.</li>
+            <li><strong>World Philosophies:</strong> Eastern, Western, Indigenous perspectives.</li>
+            <li><strong>Computer Science:</strong> Three years of CS; ongoing studies in programming & cybersecurity.</li>
+        </ul>
     </div>
 
-    <script>
-        let isMatrix = false;
-        let matrixInterval;
+    <div class="section">
+        <h2>Experience</h2>
+        <p>...and still gaining more!</p>
+        <ul>
+            <li>Fixed adware, reset passwords, fixed drivers, installed OS, used BIOS, scanned ports.</li>
+            <li>Familiar with Metasploit, code challenges (Codewars, LeetCode).</li>
+            <li>Proficient in Python, Java, and C++.</li>
+        </ul>
+    </div>
+</div>
 
-        function toggleTheme() {
-            const h1 = document.querySelector('h1');
-            const matrixDiv = document.getElementById('matrix');
-            const canvas = document.getElementById('matrixCanvas');
-            const ctx = canvas.getContext('2d');
-            const content = document.getElementById('content');
+<script>
+let isMatrix = false;
+let matrixInterval;
 
-            if (isMatrix) {
-                // Switch to kawaii theme
-                clearInterval(matrixInterval);
-                matrixDiv.style.display = 'none';
-                document.body.style.backgroundColor = '#fdfdfd'; // Soft pink
-                document.body.style.color = '#ffb0d8';
-                h1.style.backgroundColor = '#2ae3fc';
-                h1.style.color = '#ffb0d8';
-                content.style.color = '#2ae3fc';
-            } else {
-                // Switch to Matrix theme
-                document.body.style.backgroundColor = 'black';
-                document.body.style.color = 'white';
-                h1.style.backgroundColor = 'transparent';
-                h1.style.color = 'lime';
-                matrixDiv.style.display = 'block';
-                content.style.color = 'lime';
+function toggleTheme() {
+    const h1 = document.querySelector('h1');
+    const matrixDiv = document.getElementById('matrix');
+    const canvas = document.getElementById('matrixCanvas');
+    const ctx = canvas.getContext('2d');
+    const content = document.getElementById('content');
 
-                // Start Matrix effect
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                const columns = Math.floor(canvas.width / 20);
-                const drops = Array(columns).fill(0);
+    if (isMatrix) {
+        clearInterval(matrixInterval);
+        matrixDiv.style.display = 'none';
+        document.body.style.backgroundColor = 'var(--primary-bg)';
+        document.body.style.color = 'var(--primary-text)';
+        h1.style.backgroundColor = 'var(--header-bg)';
+        h1.style.color = 'var(--header-text)';
+        content.style.color = 'var(--primary-text)';
+    } else {
+        document.body.style.backgroundColor = 'black';
+        document.body.style.color = 'lime';
+        h1.style.backgroundColor = 'transparent';
+        h1.style.color = 'lime';
+        matrixDiv.style.display = 'block';
+        content.style.color = 'lime';
 
-                function drawMatrix() {
-                    ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-                    ctx.fillRect(0, 0, canvas.width, canvas.height);
-                    ctx.fillStyle = 'lime';
-                    ctx.font = '20px monospace';
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+        const columns = Math.floor(canvas.width / 20);
+        const drops = Array(columns).fill(0);
 
-                    for (let i = 0; i < drops.length; i++) {
-                        const text = Math.random() > 0.5 ? '0' : '1';
-                        ctx.fillText(text, i * 20, drops[i] * 20);
-                        if (drops[i] * 20 > canvas.height && Math.random() > 0.975) {
-                            drops[i] = 0;
-                        }
-                        drops[i]++;
-                    }
-                }
-
-                matrixInterval = setInterval(drawMatrix, 50);
+        function drawMatrix() {
+            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            ctx.fillStyle = 'lime';
+            ctx.font = '20px monospace';
+            for (let i = 0; i < drops.length; i++) {
+                const text = Math.random() > 0.5 ? '0' : '1';
+                ctx.fillText(text, i * 20, drops[i] * 20);
+                if (drops[i] * 20 > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                drops[i]++;
             }
-
-            isMatrix = !isMatrix;
         }
-
-        // Infinite Scroll Effect
-        document.addEventListener("scroll", () => {
-            const content = document.getElementById("content");
-            if (window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 200) {
-                let newSection = document.createElement("div");
-                newSection.classList.add("section");
-                newSection.innerHTML = `
-                    
-                `;
-                content.appendChild(newSection);
-            }
-        });
-    </script>
+        matrixInterval = setInterval(drawMatrix, 50);
+    }
+    isMatrix = !isMatrix;
+}
+</script>
 </body>
 </html>
