@@ -1,210 +1,312 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>Amir's Resume</title>
 <style>
-    :root {
-        --primary-bg: #fdfdfd;
-        --primary-text: #251944;
-        --header-bg: #251944;
-        --header-text: #fdfdfd;
-        --accent: #3e2d72;
-        --card-bg: #ffffff;
-        --shadow: rgba(0, 0, 0, 0.1);
-    }
+  :root {
+    --primary-bg: #fdfdfd;
+    --primary-text: #251944;
+    --header-bg: #251944;
+    --header-text: #fdfdfd;
+    --accent: #3e2d72;
+    --card-bg: rgba(253, 253, 253, 0.9);
+    --shadow: rgba(0, 0, 0, 0.1);
+  }
 
-    body {
-        background-color: var(--primary-bg);
-        color: var(--primary-text);
-        margin: 0;
-        font-family: 'Segoe UI', Arial, sans-serif;
-        transition: background-color 0.5s, color 0.5s;
-        overflow-x: hidden;
-    }
+  body {
+    margin: 0;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    color: var(--primary-text);
+    background-color: black;
+    overflow-x: hidden;
+  }
 
+  canvas#matrix {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: -1;
+    pointer-events: none;
+    display: block;
+  }
+
+  h1 {
+    background-color: var(--header-bg);
+    color: var(--header-text);
+    font-family: 'Times New Roman', serif;
+    padding: 20px;
+    margin: 0;
+    position: sticky;
+    top: 0;
+    width: 100%;
+    z-index: 10;
+    box-shadow: 0 4px 12px var(--shadow);
+    text-align: center;
+    font-size: 2.2rem;
+    letter-spacing: 1px;
+  }
+
+  #content {
+    position: relative;
+    z-index: 5;
+    max-width: 900px;
+    margin: 60px auto 40px auto;
+    padding: 20px 30px;
+    background: var(--card-bg);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px var(--shadow);
+  }
+
+  /* Scroll reveal effect */
+  .section {
+    margin-bottom: 40px;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+
+  .section.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .section:hover {
+    transform: translateY(-5px) scale(1.01);
+    box-shadow: 0 8px 20px var(--shadow);
+  }
+
+  h2 {
+    color: var(--accent);
+    margin-top: 0;
+    border-bottom: 2px solid var(--accent);
+    padding-bottom: 5px;
+    font-size: 1.5rem;
+  }
+
+  p, li {
+    font-size: 1rem;
+    line-height: 1.6;
+  }
+
+  ul {
+    padding-left: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+  }
+
+  li {
+    margin-bottom: 8px;
+  }
+
+  strong {
+    color: var(--accent);
+  }
+
+  @media (max-width: 600px) {
     h1 {
-        background-color: var(--header-bg);
-        color: var(--header-text);
-        font-family: 'Times New Roman', serif;
-        padding: 20px;
-        margin: 0;
-        position: sticky;
-        top: 0;
-        width: 100%;
-        z-index: 1000;
-        box-shadow: 0 4px 12px var(--shadow);
-        text-align: center;
-        font-size: 2.2rem;
-        letter-spacing: 1px;
-        cursor: pointer;
-        transition: background-color 0.5s, color 0.5s;
+      font-size: 1.8rem;
+      padding: 15px;
     }
-
-    #matrix {
-        position: fixed;
-        top: 0; left: 0;
-        width: 100%; height: 100%;
-        z-index: 0;
-        background: black;
-        display: none;
-        overflow: hidden;
-    }
-
-    canvas { display: block; }
-
     #content {
-        margin-top: 60px;
-        max-width: 900px;
-        padding: 20px;
-        margin-left: auto;
-        margin-right: auto;
-        position: relative;
-        z-index: 1;
+      margin: 60px 10px 40px 10px;
+      padding: 15px 20px;
     }
-
-    .section {
-        background: var(--card-bg);
-        box-shadow: 0 4px 12px var(--shadow);
-        border-radius: 10px;
-        padding: 20px 30px;
-        margin-bottom: 40px;
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-    }
-    .section:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 20px var(--shadow);
-    }
-
     h2 {
-        color: var(--accent);
-        margin-top: 0;
-        border-bottom: 2px solid var(--accent);
-        padding-bottom: 5px;
-        font-size: 1.5rem;
+      font-size: 1.3rem;
     }
-
-    p {
-        font-size: 1rem;
-        line-height: 1.6;
-    }
-
-    ul {
-        padding-left: 20px;
-        margin-top: 10px;
-        margin-bottom: 10px;
-    }
-
-    li {
-        margin-bottom: 8px;
-        line-height: 1.5;
-    }
-
-    strong {
-        color: var(--accent);
-    }
-
-    /* Responsive */
-    @media (max-width: 600px) {
-        h1 { font-size: 1.8rem; padding: 15px; }
-        .section { padding: 15px 20px; }
-        h2 { font-size: 1.3rem; }
-    }
+  }
 </style>
 </head>
 <body>
-<h1 onclick="toggleTheme()">Amir's Resume</h1>
-<div id="matrix"><canvas id="matrixCanvas"></canvas></div>
+
+<h1>Amir's Resume</h1>
+
+<canvas id="matrix"></canvas>
 
 <div id="content">
-    <div class="section">
-        <h2>Education</h2>
-        <p><strong>Algonquin College Student</strong> - Graduate Certificate in Cybersecurity Analysis <em>(2025-2026)</em></p>
-        <ul>
-            <li>Seeking to learn further about Cybersecurity! Beginning program in September 2025</li>
-        </ul>
+  <div class="section">
+    <h2>Profile</h2>
+    <p>Cybersecurity enthusiast with a strong background in philosophy, programming, and IT problem-solving. Adept at bridging the gap between human insight and technical expertise, with a passion for ethical hacking, network defense, and continuous learning. Highly self-motivated, disciplined, and driven by curiosity.</p>
+  </div>
 
-        <p><strong>Google</strong> - Cybersecurity Certification <em>(2025-Present)</em></p>
-        <ul>
-            <li><strong>IT:</strong> Resetting, fixing, maintaining, teaching, and learning about software and hardware.</li>
-            <li><strong>Networking:</strong> IP, DNS, TCP, UDP, packets, ports, and more.</li>
-            <li><strong>Red Team:</strong> Used Metasploit and other hacking tools.</li>
-            <li><strong>Blue Team:</strong> Patched vulnerabilities, improved network defense.</li>
-            <li><strong>Theory:</strong> Strong understanding of hacking frameworks and mindsets.</li>
-            <li><strong>Development:</strong> Creating and studying cybersecurity tools.</li>
-            <li><strong>Mentality:</strong> Driven by curiosity, discipline, and passion for Cybersecurity!</li>
-        </ul>
+  <div class="section">
+    <h2>Education</h2>
+    <p><strong>Algonquin College</strong> — Graduate Certificate in Cybersecurity Analysis <em>(2025-2026)</em></p>
+    <ul>
+      <li>Specializing in threat detection, incident response, and penetration testing.</li>
+      <li>Hands-on training with enterprise-level security tools.</li>
+    </ul>
 
-        <p><strong>Carleton University Alumni</strong> - B.A. in Philosophy <em>(2021-2024)</em></p>
-        <ul>
-            <li><strong>Metaphysics:</strong> Explored reality and existence beyond the physical.</li>
-            <li><strong>Logic:</strong> Studied reasoning, argument structures, symbolic logic.</li>
-            <li><strong>Ethics:</strong> Covered virtue ethics, deontology, consequentialism.</li>
-            <li><strong>World Philosophies:</strong> Eastern, Western, Indigenous perspectives.</li>
-            <li><strong>Computer Science:</strong> Three years of CS; ongoing studies in programming & cybersecurity.</li>
-        </ul>
-    </div>
+    <p><strong>Google Cybersecurity Certification</strong> <em>(2025-Present)</em></p>
+    <ul>
+      <li><strong>IT:</strong> Troubleshooting, maintenance, hardware/software optimization.</li>
+      <li><strong>Networking:</strong> IP, DNS, TCP/UDP, ports, and packet analysis.</li>
+      <li><strong>Red Team:</strong> Metasploit, Kali Linux, ethical hacking simulations.</li>
+      <li><strong>Blue Team:</strong> Patch management, SOC workflows, risk mitigation.</li>
+      <li><strong>Theory:</strong> Cybersecurity frameworks and attacker mindset.</li>
+    </ul>
 
-    <div class="section">
-        <h2>Experience</h2>
-        <p>...and still gaining more!</p>
-        <ul>
-            <li>Fixed adware, reset passwords, fixed drivers, installed OS, used BIOS, scanned ports.</li>
-            <li>Familiar with Metasploit, code challenges (Codewars, LeetCode).</li>
-            <li>Proficient in Python, Java, and C++.</li>
-        </ul>
-    </div>
+    <p><strong>Carleton University</strong> — B.A. in Philosophy <em>(2021-2024)</em></p>
+    <ul>
+      <li><strong>Metaphysics:</strong> Investigated reality beyond the physical world.</li>
+      <li><strong>Logic:</strong> Critical thinking, symbolic logic, and problem-solving.</li>
+      <li><strong>Ethics:</strong> Explored decision-making frameworks and moral reasoning.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Experience</h2>
+    <ul>
+      <li>Fixed adware, installed OS, performed BIOS updates, driver repairs.</li>
+      <li>Used Nmap, Wireshark, and Metasploit for network analysis and testing.</li>
+      <li>Built Python scripts for automation and basic cybersecurity tools.</li>
+      <li>Familiar with Java and C++ for backend and software logic.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Skills</h2>
+    <ul>
+      <li>Penetration Testing</li>
+      <li>Network Security</li>
+      <li>Linux Server Management</li>
+      <li>Python, Java, C++</li>
+      <li>Cybersecurity Frameworks</li>
+      <li>Critical Thinking & Problem Solving</li>
+    </ul>
+  </div>
+
+  <!-- New Sections Added Here -->
+  <div class="section">
+    <h2>Transferable Skills</h2>
+    <ul>
+      <li>Analytical problem solving and troubleshooting across technical and philosophical domains.</li>
+      <li>Effective communication: explaining complex cybersecurity concepts in accessible terms.</li>
+      <li>Adaptability and quick learning in fast-changing environments.</li>
+      <li>Strong discipline and time management, honed through rigorous academic and self-driven projects.</li>
+      <li>Collaboration and teamwork in ethical hacking and defense scenarios.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Personality Traits</h2>
+    <ul>
+      <li>Curious and insatiably hungry for knowledge.</li>
+      <li>Calm under pressure, able to face challenges without fear or hesitation.</li>
+      <li>Humble yet confident in abilities.</li>
+      <li>Empathetic — understanding the human side of technology and security.</li>
+      <li>Resilient and persistent; obstacles are seen as growth opportunities.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Abilities</h2>
+    <ul>
+      <li>Rapid acquisition of new technical skills.</li>
+      <li>Executing both offensive and defensive cybersecurity tactics.</li>
+      <li>Designing and developing simple cybersecurity tools and scripts.</li>
+      <li>Logical reasoning from philosophy applied to technical problem-solving.</li>
+      <li>Bridging interdisciplinary knowledge for innovative solutions.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Hobbies</h2>
+    <ul>
+      <li>Exploring philosophical texts and metaphysics.</li>
+      <li>Programming personal projects and cybersecurity tools.</li>
+      <li>Practicing mental discipline through meditation and reflection.</li>
+      <li>Playing strategic games to sharpen logic and decision-making.</li>
+      <li>Learning new languages and technologies continuously.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Challenges</h2>
+    <ul>
+      <li>Overcoming nicotine addiction while maintaining focus and discipline.</li>
+      <li>Balancing intense intellectual curiosity with practical application.</li>
+      <li>Developing empathy in technical fields traditionally focused on hard logic.</li>
+      <li>Integrating deep philosophical concepts with everyday cybersecurity challenges.</li>
+      <li>Maintaining consistent growth without getting trapped in perfectionism or ego.</li>
+    </ul>
+  </div>
+
+  <div class="section">
+    <h2>Projects</h2>
+    <ul>
+      <li><strong>Port Scanner:</strong> Custom Python-based port scanning tool with logging.</li>
+      <li><strong>Password Generator:</strong> Secure password creation script with entropy analysis.</li>
+      <li><strong>Network Monitor:</strong> Real-time packet capture using Scapy and Wireshark integration.</li>
+    </ul>
+  </div>
 </div>
 
 <script>
-let isMatrix = false;
-let matrixInterval;
+  // Matrix animation
+  const canvas = document.getElementById('matrix');
+  const ctx = canvas.getContext('2d');
 
-function toggleTheme() {
-    const h1 = document.querySelector('h1');
-    const matrixDiv = document.getElementById('matrix');
-    const canvas = document.getElementById('matrixCanvas');
-    const ctx = canvas.getContext('2d');
-    const content = document.getElementById('content');
+  function resize() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+  resize();
+  window.addEventListener('resize', () => {
+    resize();
+    columns = Math.floor(canvas.width / fontSize);
+    initializeDrops();
+  });
 
-    if (isMatrix) {
-        clearInterval(matrixInterval);
-        matrixDiv.style.display = 'none';
-        document.body.style.backgroundColor = 'var(--primary-bg)';
-        document.body.style.color = 'var(--primary-text)';
-        h1.style.backgroundColor = 'var(--header-bg)';
-        h1.style.color = 'var(--header-text)';
-        content.style.color = 'var(--primary-text)';
-    } else {
-        document.body.style.backgroundColor = 'black';
-        document.body.style.color = 'lime';
-        h1.style.backgroundColor = 'transparent';
-        h1.style.color = 'lime';
-        matrixDiv.style.display = 'block';
-        content.style.color = 'lime';
+  const letters = '01';
+  const fontSize = 16;
+  let columns = Math.floor(canvas.width / fontSize);
+  const drops = [];
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-        const columns = Math.floor(canvas.width / 20);
-        const drops = Array(columns).fill(0);
-
-        function drawMatrix() {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.1)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            ctx.fillStyle = 'lime';
-            ctx.font = '20px monospace';
-            for (let i = 0; i < drops.length; i++) {
-                const text = Math.random() > 0.5 ? '0' : '1';
-                ctx.fillText(text, i * 20, drops[i] * 20);
-                if (drops[i] * 20 > canvas.height && Math.random() > 0.975) drops[i] = 0;
-                drops[i]++;
-            }
-        }
-        matrixInterval = setInterval(drawMatrix, 50);
+  function initializeDrops() {
+    for (let i = 0; i < columns; i++) {
+      drops[i] = 1;
     }
-    isMatrix = !isMatrix;
-}
+  }
+  initializeDrops();
+
+  function draw() {
+    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = '#b26eff'; // Purple numbers
+    ctx.font = fontSize + 'px monospace';
+
+    for (let i = 0; i < drops.length; i++) {
+      const text = letters.charAt(Math.floor(Math.random() * letters.length));
+      ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+      if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+        drops[i] = 0;
+      }
+      drops[i]+= 0.4;
+    }
+  }
+
+  setInterval(draw, 35);
+
+  // Scroll reveal animation for sections
+  const sections = document.querySelectorAll('.section');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.2 });
+
+  sections.forEach(section => observer.observe(section));
 </script>
+
 </body>
 </html>
